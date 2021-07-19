@@ -1,0 +1,65 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: JessieSun
+ * @Date: 2021-06-22 23:11:47
+ * @LastEditors: JessieSun
+ * @LastEditTime: 2021-07-19 23:36:27
+-->
+
+<!doctype html>
+<html>
+    <head>
+        <title>ArrayStack Learning</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <style type="text/css">
+        .demo-option, .option-row{
+            margin-top: 10px;
+        }
+        </style> 
+        <script src="script/09_ArrayQueue.js" type="text/javascript"></script>
+        <script>
+            function go(){
+                var result = "";
+                var queue = new ArrayQueue(5);
+                let item1 = "4";
+                queue.enqueue(item1);
+                let tail = queue.tail;
+                let head = queue.head;
+                result += "Enter \"4\", the queue tail is " + tail  + "\n" + "the queue head is " + head;
+
+                queue.enqueue("6");
+                queue.enqueue("8");
+                tail = queue.tail;
+                result += "\n" + "enqueue 6/8, then the queue tail is " + tail;
+
+                queue.dequeue();
+                head = queue.head;
+                result += "\n" + "dequeue one item, then the queue head is " + head;
+
+                queue.enqueue("10");
+                queue.enqueue("12");
+                tail = queue.tail;
+                result += "\n" + "enqueue 10, 12, then the queue head is " + tail;
+                let isEnqueueSuccessfully = queue.enqueue("14");
+                result += "\n" + "Continue try to enqueue 14, can enqueue successfully?" + "\n" + "Of couse " + isEnqueueSuccessfully;
+                
+                _getElementById("output").value =  result;
+                
+            }
+            function _getElementById(id){
+                return document.getElementById(id);
+            }
+        
+        </script>
+        <body>
+            <div>
+                <button onclick = "go()" >执行</button>
+            </div>
+            <div class="sample-tutorial">
+                <textarea name="output" id="output" cols="30" rows="10" style="width: 100%;"></textarea>
+            </div>
+        </body>
+    </head>
+</html>
