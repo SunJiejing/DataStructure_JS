@@ -36,13 +36,13 @@
  console.log(queue.dequeue());  //  null;
 queue.enqueue("0");
 console.log(queue.tail);  // 1
-for(let i = 0; i < 6; i++){   // 这里对于最后一个元素，有bug
+for(let i = 0; i < 6; i++){   
     queue.enqueue("a" + i);
-}
-console.log(queue.head, queue.tail); // 0,0
+}   // The last item in array still kept "null", as circular queue array will have one item by empty when full.
+console.log(queue.head, queue.tail); // 0,5
 
 queue.dequeue();
 queue.dequeue();
 console.log(queue.head); //2
 queue.enqueue("7");
-console.log(queue.head, queue.tail) // 2,1
+console.log(queue.head, queue.tail) // 2,0
