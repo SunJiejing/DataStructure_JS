@@ -40,14 +40,37 @@
 
 
 // version2
+// Get each item in inputArray and fix to first position, then recurse other elements
 function arrayPermutation2(inputArray){
+    var input = [...inputArray];
+    if(input && input.length < 2){
+        return [inputArray];
+    }
+    let first, rest, restArr, results = [];
+    for(let index = 0; index < inputArray.length; index++){
+        first = [inputArray[index]];
+        rest = inputArray.slice(0, index).concat(inputArray.slice(index + 1));
+        restArr = arrayPermutation2(rest);
+        for(let item of restArr){
+            results.push(first.concat(item));
+        }
+    }
     
+    return results;
 
 }
 
 
 
- // Test
- var input = ["a1", "a2", "a3"];
- console.log(arrayPermutation(input));
- 
+ // Test method1
+ /* var input = ["a1", "a2", "a3"];
+ console.log(arrayPermutation(input)); */
+
+ // Test the second way
+
+var input = ["a1", "a2", "a3"];
+console.log(arrayPermutation2(input)); 
+input = ["a1", "a2"];
+console.log(arrayPermutation2(input)); 
+input = ["a1"];
+console.log(arrayPermutation2(input)); 
