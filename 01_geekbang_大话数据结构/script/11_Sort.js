@@ -25,18 +25,42 @@ function bubbleSort(array){
     if( !array || !array.length ) return null;
     var temp;
     for(let index1 = 0; index1 < array.length; index1++){
+        let flag = false;
         for(let index2 = 0; index2 < array.length - index1 - 1; index2 ++){
             if(array[index2] > array[index2 + 1]){
                 temp = array[index2];
                 array[index2] = array[index2 + 1];
                 array[index2 + 1] = temp;
+                flag = true;
             }
+        }
+        if(flag === false){
+        break; // Means there's no items switch, which means sort finished.
         }
     }
     return array;
 }
 
+function insertionSort(array){
+    if(!array || !array.length) return null;
+    let unsortedItem;
+    for(let index1 = 1; index1 < array.length; index1++){
+        unsortedItem = array[index1];
+        let index2 = index1 - 1
+        for(; index2 >= 0; index2--){
+            if(array[index2] > unsortedItem){
+                array[index2 + 1] = array[index2];
+            }else{
+                break;
+            }
+        }
+        array[index2 + 1] = unsortedItem;
+    }
+    return array;
+}
+
   //Test Part
-  var array1 = [5,4,6,2,7,1];
-//   console.log(mySort(array1));
-console.log(bubbleSort(array1));
+ var array1 = [5,4,6,2,7,1];
+   console.log(mySort(array1));
+   console.log(bubbleSort(array1));
+   console.log(insertionSort(array1));
