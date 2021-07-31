@@ -4,7 +4,7 @@
  * @Author: JessieSun
  * @Date: 2021-07-28 23:09:51
  * @LastEditors: JessieSun
- * @LastEditTime: 2021-07-29 00:02:25
+ * @LastEditTime: 2021-07-31 16:23:54
  */
 function mySort(array){
     if( !array || !array.length ) return null;
@@ -59,8 +59,25 @@ function insertionSort(array){
     return array;
 }
 
+function selectionSort(array){
+    if(!array || !array.length) return null;
+    let temp;
+    for(let index = 0; index < length; index++){
+        for(let unIndex = index + 1; unIndex < length; unIndex++){
+            if(array[index] > array[unIndex]){
+                temp = array[index];
+                array[index] = array[unIndex];
+                array[unIndex] = temp;
+            }
+        }
+    }
+    return array;
+    
+}
+
   //Test Part
  var array1 = [5,4,6,2,7,1];
    console.log(mySort(array1));
    console.log(bubbleSort(array1));
    console.log(insertionSort(array1));
+   console.log(selectionSort(array1));
