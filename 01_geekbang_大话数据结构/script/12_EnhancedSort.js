@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: JessieSun
+ * @Date: 2021-08-01 23:20:49
+ * @LastEditors: JessieSun
+ * @LastEditTime: 2021-08-01 23:41:16
+ */
 function mergeSort(array){
     let length = array.length;
     mergeSort_Split(array, 0, length - 1);
@@ -24,10 +32,18 @@ function merge(array, middle){
             resArray.push(array[index2++]);           
        }
     };
+    let start = index1, end = middle;
+    if(index2 < array.length){
+        start = index2, end = array.length;  // end should be array.length or array.length-1 ?
+    }
 
-    
+    while(start <= end){
+        resArray.push(array[start++]);
+    }
 
-
-
-
+    for(let index = 0; index < resArray.length; index++){
+        array[index] = resArray[index];
+    }
+    resArray = null;
+    return array;
 }
