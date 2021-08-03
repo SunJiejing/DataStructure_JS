@@ -4,7 +4,7 @@
  * @Author: JessieSun
  * @Date: 2021-08-01 23:20:49
  * @LastEditors: JessieSun
- * @LastEditTime: 2021-08-01 23:41:16
+ * @LastEditTime: 2021-08-02 23:36:39
  */
 function mergeSort(array){
     let length = array.length;
@@ -17,6 +17,7 @@ function mergeSort_Split(array, start, end){
     mergeSort_Split(array, start, middle);
     mergeSort_Split(array, middle + 1, end);
     merge(array,middle);
+    return array;
 }
 
 function merge(array, middle){
@@ -26,7 +27,7 @@ function merge(array, middle){
     let index1 = 0, index2 = middle + 1;
     while(index1 <= middle && index2 <array.length){
         if(array[index1] <= array[index2]){
-            resArray.push(array[index++]);
+            resArray.push(array[index1++]);
     
         }else{
             resArray.push(array[index2++]);           
@@ -47,3 +48,10 @@ function merge(array, middle){
     resArray = null;
     return array;
 }
+
+
+
+
+// Test code
+var array = [4,7,2,3,5,2,14,13,23,10,9];
+console.log(mergeSort(array));
