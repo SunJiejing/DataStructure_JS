@@ -1,8 +1,8 @@
 /*
  * @Descripttion: 
  * Step1. Create buckets.
- *       a. Get the min & max value for waiting for sorted array
- *       b. Divide the buckets by (max - min)/ count
+ *       a. Get the min & max value for array of waiting for sorted
+ *       b. Divide the buckets by (max - min)/ bucketSize
  *       c. Split array items into each buckets.
  * Step2. Insert sorting for each bucket.
  * 
