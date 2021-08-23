@@ -13,7 +13,7 @@ class Heap{
         this.count++;
         this.array[this.count] = value;
         let index = this.count;
-        while(index/2 > 0 && this.array[index] > this.array[index]){
+        while(index/2 > 0 && this.array[index] > this.array[index/2]){
             [this.array[index], this.array[index/2]] = [this.array[index/2], this.array[index]];
             index = index / 2;
         }
@@ -29,15 +29,18 @@ array.forEach(element => {
 });
 let str = printHeapArray(heap);
 console.log(str);
-heap.insert(12);
+heap.insert(22);
 let str2 = printHeapArray(heap);
 console.log(str2);
 
 function printHeapArray(heap) {
-    let str;
-    for (let index = 0; index < heap.array.length; index++) {
-        str += heap.array[index] + " ,";
+    let str = "";
+    for (let index = 1; index < heap.maxSize + 1; index++) {
+        if(heap.array[index]){
+        str += heap.array[index] + ", ";
+        }
     }
+    str = str.split(0, str.length);
     return str;
 }
 
