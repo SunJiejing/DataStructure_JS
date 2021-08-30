@@ -1,3 +1,6 @@
+/*
+ * @Descripttion: 
+ */
 class Heap{
     array;
     maxSize;
@@ -13,9 +16,11 @@ class Heap{
         this.count++;
         this.array[this.count] = value;
         let index = this.count;
-        while(index/2 > 0 && this.array[index] > this.array[index/2]){
-            [this.array[index], this.array[index/2]] = [this.array[index/2], this.array[index]];
-            index = index / 2;
+        let parentIndex = parseInt(index / 2);
+        while(parentIndex > 0 && this.array[index] > this.array[parentIndex]){
+            [this.array[index], this.array[parentIndex]] = [this.array[parentIndex], this.array[index]];
+            index = parseInt(index / 2);
+            parentIndex = parseInt(index / 2);
         }
     }
 
@@ -24,7 +29,7 @@ class Heap{
        if(this.count === 0) return -1;  // Means there is no data to remove
        this.array[1] = this.array[this.count];
        this.count--;   // remove the last item
-       heapify(this.array, this.count, 1);
+       this.heapify(this.array, this.count, 1);
     }
 
     heapify(array, maxSize, i){
