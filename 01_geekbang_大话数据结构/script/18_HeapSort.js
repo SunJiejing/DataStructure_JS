@@ -1,9 +1,12 @@
+/*
+ * @Descripttion: 
+ */
 // input: array
 // output: ordered array
 function heapSort(array) {
     if(!array || !array.length) return;
     let size = array.length;
-    buildHeap(array, size);
+    array = buildHeap(array, size);
     sort(array, size);
     array = array.splice(1);
     return array;  
@@ -15,6 +18,7 @@ function buildHeap(array, size) {
     for(let index = parseInt(size/2); index > 0; index-- ){
         heapify(array, size, index);
     }
+    return array;
 }
 
 function heapify(array, size, index) {
