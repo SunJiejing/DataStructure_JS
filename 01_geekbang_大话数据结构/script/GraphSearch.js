@@ -48,7 +48,7 @@ class LinkedQueue{
 
 
 class Graph {
-    size; adjacentLists; path;
+    size; adjacentLists; path; foundFlag4Dfs = false;
     constructor(size) {
         this.size = size;
         this.adjacentLists = new Array(this.size);
@@ -93,15 +93,46 @@ class Graph {
                 }
             }
         }
+       
+    }
 
-        // An internal method so that only can be used by bfs method.
-        function print(prev, start, point){
-            if(prev[point] != -1 && start != point){
-                print(prev, start, prev[point]);
-            }
-            // Todo here should pass out a concated string.
-            console.log(point + ", ");
+    // also could be used for DFS
+    print(prev, start, point){
+        if(prev[point] != -1 && start != point){
+            this.print(prev, start, prev[point]);
         }
+        // Todo here should pass out a concated string.
+        console.log(point + ", ");
+    }
+
+
+    // the deepth first search method from point start to end
+    dfs(start, end){
+        this.foundFlag4Dfs = false;
+        let visited = new Array(this.size);
+        let prev = new Array(this.size);
+        for(let index = 0; index < this.size; index++){
+            prev[index] = -1;
+        }
+
+        this.recurseDfs(start, end, visited, prev);
+        this.print(prev, start, end);
+    }
+    recurseDfs(start, end, visited, prev){
+        if(this.foundFlag4Dfs) return;
+        visited[start] = true;
+        if(start === end){
+            this.foundFlag4Dfs = true;
+            return;
+        }
+        for(let index = 0; index < this.adjacentLists[start].size; index++){
+            let point = this.adjacentLists[start].get(index);
+            if(!visited[point]){
+                prev[point] = start;
+                this.recurseDfs(point, end, visited, prev);
+            }
+        }
+
     }
 
 }
@@ -110,7 +141,7 @@ class Graph {
 
 
 // Test cases
-// step1. Build graph
+// case 1, bfs
 function test(){
     let graph = new Graph(8);
     buildEdge(graph);
@@ -119,6 +150,13 @@ function test(){
     debugger;
 }
 
+// case2, dfs
+function testDfs(){
+    let graph = new Graph(8);
+    buildEdge(graph);
+    let path = graph.dfs(0,6);
+    console.log(path);
+}
 
 function buildEdge(graph){
     graph.addEdge(0,1);graph.addEdge(0,3);
