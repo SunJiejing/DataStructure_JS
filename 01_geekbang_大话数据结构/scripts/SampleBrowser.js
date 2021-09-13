@@ -3,10 +3,10 @@
  * @version: 
  * @Author: JessieSun
  * @Date: 2021-07-05 22:58:14
- * @LastEditors: JessieSun
- * @LastEditTime: 2021-07-05 23:21:31
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-13 22:50:40
  */
-import { LinkedStack } from "./LinkedStack.js";
+import { LinkedStack } from "./LinkedStack.js.js";
 
 
 class SampleBrowser{
