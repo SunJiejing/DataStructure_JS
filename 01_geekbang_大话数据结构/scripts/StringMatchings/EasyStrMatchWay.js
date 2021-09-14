@@ -1,3 +1,17 @@
+
+function bf_strMatching (mainStr, modelStr){
+    let size1 = mainStr.length;
+    let size2 = modelStr.length;
+    if(size1 < size2) return -1;
+    for(let index = 0; index < size1 - size2 + 1; index++){
+        let subStr = mainStr.slice(index, index + size2);
+        if(subStr === modelStr) return index;
+    }
+    return -1;
+}
+
+
+//BK string matching method
 let hashMap = {
     "a": 1,
     "b": 2,
@@ -51,3 +65,11 @@ function getHashCode(str, hashMap){
     return result;
 
 }
+
+
+
+// Testing cases
+let str1 = "abcdabedabfddaes";
+let str2 = "edab";
+console.log(bf_strMatching(str1, str2));
+console.log(bf_strMatching(str1, "fddaed"));
