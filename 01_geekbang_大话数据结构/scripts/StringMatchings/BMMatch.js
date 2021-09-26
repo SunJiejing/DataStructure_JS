@@ -22,7 +22,7 @@ function bm(mainStr, modelStr){
             return i;   // means model string matched in main string, and i is the start location in mainstr
         }
         // bad string part
-        let move1 = j - hashMap[mainStr[i].charCodeAt()];
+        let move1 = j - hashMap[mainStr[i + j].charCodeAt()];
         // good suffix
         let move2 = 0;
         if(j < size2 - 1){    // means exist goog suffix
@@ -80,4 +80,5 @@ function moveByGS(badStrStart, modelStrSize, suffix, prefix) {
 // Testing code
 let mainstr = "IFinallyCatchedThePointOfBMMethodAndFeelSoHappy";
 let modelStr = "BM";
-console.log(bm(mainstr, modelStr));
+console.log(bm(mainstr, modelStr));  // Expected:25
+console.log(bm(mainstr, "The"));  // Expected:15
