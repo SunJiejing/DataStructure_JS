@@ -1,6 +1,57 @@
 /*
  * @Descripttion: 
  */
+
+// infix to postfix, say 2*3+8/(5-1) -> "2 3 * 8 5 1 - / +"
+var operators = {'+': 1, '-':1, '*':2, '/':2};
+var infix2Postfix = function(exp){
+    var expList = exp.split('');
+    if(!expList || !expList.length ) return "null express";
+    var parethese = {'(':')', '[':']', '{':'}'};
+    
+    var operatorsStack = [];
+    var result = "";
+    var current = '';
+    for(let index = 0; index < expList.length; index++){
+        current = expList[index];
+        if(isOpenParethese(parethese, current)){
+            operatorsStack.push(current);
+        }else if(isCloseParethese(parethese, current)){
+            while(parethese[operatorsStack[operatorsStack.length - 1]] !== current){
+                result += operatorsStack.pop() + " ";
+            }
+            operatorsStack.pop();
+        }else if(Object.keys(operators).includes(current)){
+            while(operatorsStack.length && topStackIsHigher(operatorsStack[operatorsStack.length - 1], current)){
+
+                result += operatorsStack.pop() + " ";
+            }
+            operatorsStack.push(current);
+        }else{
+            result += current + " ";
+        }
+    }
+    while(operatorsStack.length){
+        result += operatorsStack.pop() + " ";
+    }
+    return result;
+
+    
+}
+
+// too function for infix2Postfix
+function isCloseParethese(parethese, current) {
+    return Object.values(parethese).includes(current);
+}
+
+function isOpenParethese(parenthese, current) {
+    return Object.keys(parenthese).includes(current);
+}
+function topStackIsHigher(topStack, operator){
+    if(operators[topStack] >= operators[operator]) return true;
+    return false;
+}
+
 // evaluate prefix, say 2*3+8/4-9 -> "- + * 2 3 / 8 4 9" 
 var evaluatePrefix = function(exp){
     var expList = exp.split(' ');
@@ -53,7 +104,12 @@ var evaluate = function(oprand1, oprand2, operator){
     }
 }
 
-console.log(evaluatePostfix("2 3 * 8 4 / + 9 -"));
-console.log(evaluatePostfix("5 5 3 - * 6 6 4 - / +"));
-console.log(evaluatePrefix("- + * 2 3 / 8 4 9" ));
-console.log(evaluatePrefix("+ * 5 - 5 3 / 6 - 6 4"));
+// console.log(evaluatePostfix("2 3 * 8 4 / + 9 -"));
+// console.log(evaluatePostfix("5 5 3 - * 6 6 4 - / +"));
+// console.log(evaluatePrefix("- + * 2 3 / 8 4 9" ));
+// console.log(evaluatePrefix("+ * 5 - 5 3 / 6 - 6 4"));
+console.log(infix2Postfix('1+2'));
+console.log(infix2Postfix('1+2+(2*3+1)'));
+console.log(infix2Postfix('2*3+8/(5-1)'));
+console.log(infix2Postfix('2*3+(3+8/(5-1))'));
+
