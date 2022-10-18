@@ -22,7 +22,7 @@ var infix2Postfix = function(exp){
             }
             operatorsStack.pop();
         }else if(Object.keys(operators).includes(current)){
-            while(operatorsStack.length && topStackIsHigher(operatorsStack[operatorsStack.length - 1], current)){
+            while(operatorsStack.length && topStackIsHigherforPostfix(operatorsStack[operatorsStack.length - 1], current)){
 
                 result += operatorsStack.pop() + " ";
             }
@@ -39,7 +39,7 @@ var infix2Postfix = function(exp){
     
 }
 
-// too function for infix2Postfix
+// tool function for infix2Postfix
 function isCloseParethese(parethese, current) {
     return Object.values(parethese).includes(current);
 }
@@ -47,9 +47,49 @@ function isCloseParethese(parethese, current) {
 function isOpenParethese(parenthese, current) {
     return Object.keys(parenthese).includes(current);
 }
-function topStackIsHigher(topStack, operator){
+function topStackIsHigherforPostfix(topStack, operator){
     if(operators[topStack] >= operators[operator]) return true;
     return false;
+}
+function topStackIsHigherforPrefix(topStack, operator){
+    if(operators[topStack] > operators[operator]) return true;
+    return false;
+}
+
+// infix to  prefix function
+var infix2Prefix = function(exp){
+    var expList = exp.split("");
+    if(!expList || !expList.length) return "null expression";
+    var parethese = {'(':')', '[':']', '{':'}'};    
+    var operatorsStack = [];
+    var resultStack = [];
+    var current = '';
+    for (let index = expList.length - 1; index >= 0; index--){
+        current = expList[index];
+        if(isCloseParethese(parethese, current)){
+            operatorsStack.push(current);
+        }else if(isOpenParethese(parethese, current)){
+            while(parethese[current] !== operatorsStack[operatorsStack.length - 1]){
+                resultStack.push(operatorsStack.pop());
+            }
+            operatorsStack.pop();
+        }else if(Object.keys(operators).includes(current)){
+            while(operatorsStack.length && topStackIsHigherforPrefix(operatorsStack[operatorsStack.length - 1],current)){
+                resultStack.push(operatorsStack.pop());
+            }
+            operatorsStack.push(current);
+        }else{
+            resultStack.push(current);
+        }
+    }
+    while(operatorsStack.length){
+        resultStack.push(operatorsStack.pop());
+    }
+    var result = '';
+    while(resultStack.length){
+        result += resultStack.pop() + " ";
+    }
+    return result;
 }
 
 // evaluate prefix, say 2*3+8/4-9 -> "- + * 2 3 / 8 4 9" 
@@ -113,3 +153,8 @@ console.log(infix2Postfix('1+2+(2*3+1)'));
 console.log(infix2Postfix('2*3+8/(5-1)'));
 console.log(infix2Postfix('2*3+(3+8/(5-1))'));
 
+console.log(infix2Prefix('1+2'));
+console.log(infix2Prefix('1+2+(2*3+1)'));
+console.log(infix2Prefix('2*3+8/(5-1)'));
+console.log(infix2Prefix('2*3+(3+8/(5-1))'));
+console.log(infix2Prefix('2*3+(3+8/(5-1))+1'));
