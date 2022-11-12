@@ -91,6 +91,12 @@ BSTree.prototype.finMaxByRecursion = function(root){
     return root.value;
 }
 
+BSTree.prototype.heightOfTree = function(root){
+    if(!root) return -1;
+    return Math.max(this.heightOfTree(root.left), this.heightOfTree(root.right)) + 1;
+}
+
+
 
 
 
@@ -115,10 +121,15 @@ bst.root =  bst.insert(bst.root, 8);
 bst.root = bst.insert(bst.root, 14);
 bst.root = bst.insert( bst.root, 5);
 console.log(bst);
+console.log(bst.heightOfTree(bst.root));
 console.log(bst.search(bst.root, 5));
 console.log(bst.search(bst.root, 10));
 console.log(bst.finMinByloop(bst.root));
 console.log(bst.finMinByRecursion(bst.root));
 console.log(bst.finMaxByloop(bst.root));
 console.log(bst.finMaxByRecursion(bst.root));
-
+console.log(bst.heightOfTree(bst.root));
+bst.root = bst.insert( bst.root, 9);
+console.log(bst.heightOfTree(bst.root));
+bst.root = bst.insert( bst.root, 10);
+console.log(bst.heightOfTree(bst.root));
