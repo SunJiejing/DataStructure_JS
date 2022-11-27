@@ -101,6 +101,63 @@ BinaryTree.prototype.isBST3 = function(root){
     return true;
 }
 
+BinaryTree.prototype.deleteNode = function(root, data){
+    if(!root) return root;
+    if(data < root.value) root.left = this.deleteNode(root.left, data);
+    else if(data > root.value) root.right = this.deleteNode(root.right, data);
+    else{   // here means found the node to be deleted
+        if(!root.left && !root.right){
+            root = null;
+        }else if(!root.left){
+            root = root.right;
+        }else if(!root.right){
+            root = root.left;
+        }else{ // means left & right sub-node both exists
+            var temp = this.finMin(root.right);
+            root.value = temp.value;
+            root.right = this.deleteNode(root.right, temp.value);
+        }
+
+    }
+    return root;   
+}
+
+BinaryTree.prototype.finMin = function(root){
+    if(!root) return null;
+    while(root.left) root = root.left;
+    return root;
+}
+BinaryTree.prototype.find = function(root, data){
+    if(!root) return null;
+    if(data == root.value) return root; 
+    if(data > root.value){
+        return this.find(root.right, data);
+    }else{
+        return this.find(root.left, data);
+    }
+}
+BinaryTree.prototype.findSuccessor = function(root, data){
+    var current = this.find(root, data);
+    if(!current) return null;
+    if(current.right){
+        var temp = this.finMin(current.right);
+        return temp.value;
+    }else{
+        var successor = null;
+        var ancestor = root;
+        while(current != ancestor){
+            if(current.value < ancestor.value){
+                successor = ancestor;
+                ancestor = ancestor.left;
+            }else{
+                ancestor = ancestor.right;
+            }
+        }
+        return successor? successor.value:null;
+    }
+}
+
+
 // util method
 var isSubTreeLesser = function(root, value){
     if(!root) return true;
@@ -141,6 +198,12 @@ console.log(binaryTree.postOrderTraversal(printResult, binaryTree.root));
 console.log(binaryTree.isBST(binaryTree.root));
 console.log(binaryTree.isBST2(binaryTree.root, -Infinity, Infinity));
 console.log(binaryTree.isBST3(binaryTree.root));
+console.log(binaryTree.findSuccessor(binaryTree.root, 7));
+console.log(binaryTree.findSuccessor(binaryTree.root, 11));
+console.log(binaryTree.deleteNode(binaryTree.root, 3));
+console.log(binaryTree.deleteNode(binaryTree.root, 7));
+
+
 // the first binary tree
 //    8
 //   /
@@ -154,7 +217,9 @@ left.left = new BTNode(4);
 console.log(binaryTree2.isBST(binaryTree2.root));
 console.log(binaryTree2.isBST2(binaryTree2.root, -Infinity, Infinity));
 console.log(binaryTree2.isBST3(binaryTree2.root));
-
+console.log(binaryTree2.findSuccessor(binaryTree2.root, 4));
+console.log(binaryTree2.findSuccessor(binaryTree2.root, 6));
+console.log(binaryTree2.findSuccessor(binaryTree2.root, 8));
 //  the second binary tree
 //      10
 //     /  \
@@ -197,6 +262,9 @@ binaryTree4.root = root;
 console.log(binaryTree4.isBST(binaryTree4.root));
 console.log(binaryTree4.isBST2(binaryTree4.root, -Infinity, Infinity));
 console.log(binaryTree4.isBST3(binaryTree4.root));
+console.log(binaryTree4.findSuccessor(binaryTree4.root, 7));
+console.log(binaryTree4.findSuccessor(binaryTree4.root, 4));
+console.log(binaryTree4.findSuccessor(binaryTree4.root, 6));
 console.log("Break");
 
 root = new BTNode(5);
